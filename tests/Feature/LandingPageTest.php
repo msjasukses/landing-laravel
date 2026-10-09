@@ -19,8 +19,22 @@ class LandingPageTest extends TestCase
             ->assertSee('Digital Learning Management System')
             ->assertSee('Login Protect')
             ->assertSee('AVAILABLE APPS')
+            ->assertSee('Semua layanan sekolah dalam satu portal')
             ->assertSeeInOrder(['DEMO', 'DATA CENTER', 'PRESENSI', 'JURNAL', 'CBT', 'LAYANAN SEKOLAH', 'KESISWAAN'])
             ->assertSee('id="appSearch"', false);
+    }
+
+    public function test_group_filter_appears_only_when_more_than_one_group_is_active(): void
+    {
+        $groups = AppGroup::ordered()->get();
+
+        $this->get('/')
+            ->assertSee('data-filter="'.$groups[0]->id.'"', false)
+            ->assertSee('data-filter="'.$groups[1]->id.'"', false);
+
+        $groups[1]->update(['is_active' => false]);
+
+        $this->get('/')->assertDontSee('data-filter=', false);
     }
 
     public function test_inactive_apps_and_groups_are_hidden(): void

@@ -42,6 +42,8 @@ return [
         'hero_overlay' => 'kegelapan overlay',
         'hero_image' => 'gambar hero',
         'section_label' => 'label seksi',
+        'section_title' => 'judul seksi',
+        'section_subtitle' => 'keterangan seksi',
         'accent_color' => 'warna label seksi',
         'primary_color' => 'warna utama',
         'footer_text' => 'teks footer',

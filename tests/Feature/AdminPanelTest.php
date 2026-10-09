@@ -77,6 +77,8 @@ class AdminPanelTest extends TestCase
                 'hero_title' => 'Portal Aplikasi Sekolah',
                 'hero_overlay' => 40,
                 'section_label' => 'DAFTAR APLIKASI',
+                'section_title' => 'Pilih aplikasi sekolah',
+                'section_subtitle' => '',
                 'accent_color' => '#0ea5e9',
                 'primary_color' => '#16a34a',
                 'hero_image' => UploadedFile::fake()->image('hero.jpg', 1920, 600),
@@ -90,6 +92,8 @@ class AdminPanelTest extends TestCase
         $this->get('/')
             ->assertSee('Portal Aplikasi Sekolah')
             ->assertSee('DAFTAR APLIKASI')
+            ->assertSee('Pilih aplikasi sekolah')
+            ->assertDontSee('class="section-sub"', false) // keterangan dikosongkan => disembunyikan
             ->assertSee('--accent: #0ea5e9', false)
             ->assertSee('uploads/'.$hero, false)
             ->assertDontSee('id="appSearch"', false); // checkbox show_search tidak dikirim

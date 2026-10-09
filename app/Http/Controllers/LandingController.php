@@ -14,10 +14,13 @@ class LandingController extends Controller
             ->with(['applications' => fn ($query) => $query->active()->ordered()])
             ->get();
 
+        $apps = $groups->flatMap(fn (AppGroup $group) => $group->applications);
+
         return view('landing', [
             'groups' => $groups,
             'features' => Feature::active()->ordered()->get(),
-            'totalApps' => $groups->sum(fn (AppGroup $group) => $group->applications->count()),
+            'totalApps' => $apps->count(),
+            'showcaseApps' => $apps->take(6),
         ]);
     }
 }

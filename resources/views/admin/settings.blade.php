@@ -78,9 +78,19 @@
     <div class="card__head"><h2><x-icon name="sliders" size="18" /> Tampilan Daftar Aplikasi</h2></div>
     <div class="grid-2">
       <label class="field">
-        <span>Label seksi</span>
+        <span>Label seksi <em>(teks kecil berwarna)</em></span>
         <input type="text" name="section_label" value="{{ $val('section_label') }}">
       </label>
+      <label class="field">
+        <span>Judul seksi <em>(kosongkan untuk menyembunyikan)</em></span>
+        <input type="text" name="section_title" value="{{ $val('section_title') }}">
+      </label>
+    </div>
+    <label class="field">
+      <span>Keterangan seksi</span>
+      <textarea name="section_subtitle" rows="2">{{ $val('section_subtitle') }}</textarea>
+    </label>
+    <div class="grid-2">
       <label class="field">
         <span>Warna label seksi</span>
         <input type="color" name="accent_color" value="{{ $val('accent_color', '#e11d48') }}">

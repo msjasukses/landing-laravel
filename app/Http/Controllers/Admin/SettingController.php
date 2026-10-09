@@ -32,6 +32,8 @@ class SettingController extends Controller
             'hero_badge' => ['nullable', 'string', 'max:150'],
             'hero_overlay' => ['required', 'integer', 'between:0,90'],
             'section_label' => ['nullable', 'string', 'max:100'],
+            'section_title' => ['nullable', 'string', 'max:150'],
+            'section_subtitle' => ['nullable', 'string', 'max:300'],
             'accent_color' => ['required', 'regex:/^#[0-9a-fA-F]{6}$/'],
             'primary_color' => ['required', 'regex:/^#[0-9a-fA-F]{6}$/'],
             'footer_text' => ['nullable', 'string', 'max:200'],
