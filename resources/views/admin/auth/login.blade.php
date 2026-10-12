@@ -9,7 +9,11 @@
 <body class="auth">
 <form class="auth__card" method="post" action="{{ route('admin.login.store') }}">
   @csrf
-  <span class="auth__logo"><x-icon name="lock" size="22" /></span>
+  @if ($logo = upload_url(setting('site_logo')))
+    <span class="auth__logo auth__logo--img"><img src="{{ $logo }}" alt="Logo {{ setting('site_name', config('app.name')) }}"></span>
+  @else
+    <span class="auth__logo"><x-icon name="lock" size="22" /></span>
+  @endif
   <h1>Panel Pengaturan</h1>
   <p class="auth__sub">{{ setting('site_name', config('app.name')) }}</p>
 

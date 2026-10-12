@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\AppGroup;
 use App\Models\Application;
 use App\Models\Feature;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -21,6 +22,22 @@ class AdminPanelTest extends TestCase
     private function admin(): User
     {
         return User::where('username', 'admin')->firstOrFail();
+    }
+
+    /**
+     * Isian wajib form Pengaturan Umum, ditambah field yang sedang diuji.
+     *
+     * @param  array<string, mixed>  $overrides
+     * @return array<string, mixed>
+     */
+    private function settingsPayload(array $overrides = []): array
+    {
+        return $overrides + [
+            'site_name' => 'Digital Learning Management System',
+            'hero_overlay' => 65,
+            'accent_color' => '#e11d48',
+            'primary_color' => '#4f46e5',
+        ];
     }
 
     public function test_guest_is_redirected_to_login(): void
@@ -109,6 +126,63 @@ class AdminPanelTest extends TestCase
                 'primary_color' => '#4f46e5',
             ])
             ->assertSessionHasErrors('accent_color');
+    }
+
+    public function test_uploaded_site_logo_is_shown_on_landing_page_and_admin_panel(): void
+    {
+        Storage::fake('uploads');
+        $this->actingAs($this->admin());
+
+        $this->put(route('admin.settings.update'), $this->settingsPayload([
+            'site_logo' => UploadedFile::fake()->image('logo.png', 240, 80),
+        ]))
+            ->assertRedirect(route('admin.settings.edit'))
+            ->assertSessionHasNoErrors();
+
+        $logo = setting('site_logo');
+        Storage::disk('uploads')->assertExists($logo);
+        $logoUrl = url('uploads/'.$logo);
+
+        $this->get('/')
+            ->assertSee('<span class="brand__logo"><img src="'.$logoUrl.'"', false)
+            ->assertSee('<link rel="icon" href="'.$logoUrl.'">', false) // favicon kosong => logo
+            ->assertDontSee('class="brand__name"', false); // checkbox show_site_name tidak dikirim
+
+        $this->get(route('admin.dashboard'))
+            ->assertSee('<span class="sidebar__logo sidebar__logo--img"><img src="'.$logoUrl.'"', false);
+    }
+
+    public function test_site_logo_can_be_removed(): void
+    {
+        Storage::fake('uploads');
+        Storage::disk('uploads')->put('logo-lama.png', 'logo');
+        Setting::put(['site_logo' => 'logo-lama.png']);
+
+        $this->actingAs($this->admin())
+            ->put(route('admin.settings.update'), $this->settingsPayload(['remove_site_logo' => 1]))
+            ->assertSessionHasNoErrors();
+
+        Storage::disk('uploads')->assertMissing('logo-lama.png');
+        $this->assertSame('', setting('site_logo'));
+
+        $this->get('/')
+            ->assertDontSee('class="brand__logo"', false)
+            ->assertSee('<span class="brand__mark">DL</span>', false)
+            ->assertSee('<span class="brand__name">Digital Learning Management System</span>', false);
+    }
+
+    public function test_site_logo_must_be_an_image(): void
+    {
+        Storage::fake('uploads');
+
+        $this->actingAs($this->admin())
+            ->put(route('admin.settings.update'), $this->settingsPayload([
+                'site_logo' => UploadedFile::fake()->create('logo.pdf', 20, 'application/pdf'),
+            ]))
+            ->assertSessionHasErrors(['site_logo' => 'Logo situs harus berupa file: jpg, jpeg, png, webp, gif, svg, ico.']);
+
+        $this->assertSame('', setting('site_logo'));
+        Storage::disk('uploads')->assertDirectoryEmpty('/');
     }
 
     public function test_feature_crud_toggle_and_move(): void

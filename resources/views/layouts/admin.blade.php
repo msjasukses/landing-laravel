@@ -22,7 +22,11 @@
 
 <aside class="sidebar">
   <div class="sidebar__brand">
-    <span class="sidebar__logo"><x-icon name="layers" size="20" /></span>
+    @if ($logo = upload_url(setting('site_logo')))
+      <span class="sidebar__logo sidebar__logo--img"><img src="{{ $logo }}" alt=""></span>
+    @else
+      <span class="sidebar__logo"><x-icon name="layers" size="20" /></span>
+    @endif
     <div>
       <strong>Panel Pengaturan</strong>
       <small>{{ setting('site_name', config('app.name')) }}</small>

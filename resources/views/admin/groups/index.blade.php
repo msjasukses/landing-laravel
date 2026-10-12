@@ -60,15 +60,14 @@
         <input type="text" name="tagline" value="{{ old('tagline', $editing?->tagline) }}"
                placeholder="Sistem Informasi Sekolah Terintegrasi">
       </label>
-      <div class="field">
-        <span>Logo</span>
-        @if ($editing?->logo_url)
-          <div class="preview preview--sm"><img src="{{ $editing->logo_url }}" alt="Logo"></div>
-          <label class="check"><input type="checkbox" name="remove_logo" value="1"> Hapus logo</label>
-        @endif
-        <input type="file" name="logo" accept="image/*">
-        <small class="muted">Kosongkan untuk memakai inisial nama grup.</small>
-      </div>
+      @include('admin.partials.image-input', [
+          'name' => 'logo',
+          'label' => 'Logo grup',
+          'current' => $editing?->logo_url,
+          'remove' => 'remove_logo',
+          'empty' => 'Kosongkan untuk memakai inisial nama grup.',
+          'size' => 'sm',
+      ])
       <label class="check">
         <input type="checkbox" name="is_active" value="1" @checked(old('_token') ? old('is_active') : ($editing?->is_active ?? true))>
         Tampilkan di landing page

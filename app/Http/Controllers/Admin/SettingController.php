@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class SettingController extends Controller
 {
     /**
-     * Format gambar yang boleh diunggah (hero & favicon).
+     * Format gambar yang boleh diunggah (logo, favicon, hero, logo grup).
      */
     public const IMAGE_RULES = ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,gif,svg,ico', 'max:4096'];
 
@@ -40,13 +40,21 @@ class SettingController extends Controller
             'contact_email' => ['nullable', 'email', 'max:150'],
             'contact_phone' => ['nullable', 'string', 'max:50'],
             'contact_address' => ['nullable', 'string', 'max:200'],
+            'site_logo' => self::IMAGE_RULES,
             'hero_image' => self::IMAGE_RULES,
             'favicon' => self::IMAGE_RULES,
         ]);
 
         $data['show_search'] = $request->boolean('show_search') ? '1' : '0';
+        $data['show_site_name'] = $request->boolean('show_site_name') ? '1' : '0';
 
-        foreach (['hero_image' => 'remove_hero', 'favicon' => 'remove_favicon'] as $field => $remove) {
+        $uploads = [
+            'site_logo' => 'remove_site_logo',
+            'hero_image' => 'remove_hero',
+            'favicon' => 'remove_favicon',
+        ];
+
+        foreach ($uploads as $field => $remove) {
             $current = setting($field);
 
             if ($request->hasFile($field)) {

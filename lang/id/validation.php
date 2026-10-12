@@ -51,6 +51,7 @@ return [
         'contact_phone' => 'telepon',
         'contact_address' => 'alamat',
         'favicon' => 'favicon',
+        'site_logo' => 'logo situs',
         'title' => 'judul',
         'subtitle' => 'keterangan',
         'icon' => 'ikon',

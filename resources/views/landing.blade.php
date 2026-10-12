@@ -1,7 +1,7 @@
 @php
     $siteName = setting('site_name', config('app.name'));
     $heroImg = upload_url(setting('hero_image'));
-    $favicon = upload_url(setting('favicon'));
+    $favicon = upload_url(setting('favicon') ?: setting('site_logo'));
     $overlay = max(0, min(90, (int) setting('hero_overlay', '65'))) / 100;
     $showSearch = setting('show_search', '1') === '1' && $totalApps > 3;
     $showChips = $groups->count() > 1;
@@ -32,12 +32,7 @@
 
 <header class="nav" data-nav>
   <div class="container nav__inner">
-    <a href="#top" class="brand">
-      <span class="brand__mark">
-        @if ($favicon)<img src="{{ $favicon }}" alt="">@else{{ initials($siteName) }}@endif
-      </span>
-      <span class="brand__name">{{ $siteName }}</span>
-    </a>
+    <x-brand />
     <nav class="nav__links" aria-label="Navigasi utama">
       <a href="#aplikasi" class="nav__link">Aplikasi</a>
       <a href="#kontak" class="nav__link">Kontak</a>
@@ -246,12 +241,7 @@
 <footer id="kontak" class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <a href="#top" class="brand brand--light">
-        <span class="brand__mark">
-          @if ($favicon)<img src="{{ $favicon }}" alt="">@else{{ initials($siteName) }}@endif
-        </span>
-        <span class="brand__name">{{ $siteName }}</span>
-      </a>
+      <x-brand class="brand--light" />
       @if (setting('meta_description'))
         <p class="footer__about">{{ setting('meta_description') }}</p>
       @endif

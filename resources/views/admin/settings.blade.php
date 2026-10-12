@@ -3,6 +3,7 @@
 @section('title', 'Pengaturan Umum')
 
 @php
+    $logo = upload_url(setting('site_logo'));
     $heroImg = upload_url(setting('hero_image'));
     $favicon = upload_url(setting('favicon'));
     $val = fn (string $key, string $default = '') => old($key, setting($key, $default));
@@ -30,14 +31,29 @@
       <textarea name="meta_description" rows="2">{{ $val('meta_description') }}</textarea>
     </label>
     <div class="grid-2">
-      <div class="field">
-        <span>Favicon</span>
-        @if ($favicon)
-          <div class="preview preview--sm"><img src="{{ $favicon }}" alt="Favicon"></div>
-          <label class="check"><input type="checkbox" name="remove_favicon" value="1"> Hapus favicon</label>
-        @endif
-        <input type="file" name="favicon" accept="image/*">
+      <div class="stack">
+        @include('admin.partials.image-input', [
+            'name' => 'site_logo',
+            'label' => 'Logo situs',
+            'hint' => 'PNG/SVG transparan, tinggi min. 80 px',
+            'current' => $logo,
+            'remove' => 'remove_site_logo',
+            'empty' => 'Belum ada logo — navbar memakai inisial nama situs.',
+            'size' => 'logo',
+        ])
+        <label class="check">
+          <input type="checkbox" name="show_site_name" value="1" @checked(setting('show_site_name', '1') === '1')>
+          Tampilkan nama situs di samping logo
+        </label>
       </div>
+      @include('admin.partials.image-input', [
+          'name' => 'favicon',
+          'label' => 'Favicon',
+          'hint' => 'ikon tab browser; bila kosong memakai logo',
+          'current' => $favicon,
+          'remove' => 'remove_favicon',
+          'size' => 'sm',
+      ])
     </div>
   </section>
 
@@ -62,16 +78,14 @@
                value="{{ $val('hero_overlay', '65') }}" oninput="overlayOut.value = this.value">
       </label>
     </div>
-    <div class="field">
-      <span>Gambar latar hero <em>(disarankan 1920&times;600 px)</em></span>
-      @if ($heroImg)
-        <div class="preview"><img src="{{ $heroImg }}" alt="Hero"></div>
-        <label class="check"><input type="checkbox" name="remove_hero" value="1"> Hapus gambar hero</label>
-      @else
-        <p class="muted">Belum ada gambar &mdash; hero memakai gradasi bawaan.</p>
-      @endif
-      <input type="file" name="hero_image" accept="image/*">
-    </div>
+    @include('admin.partials.image-input', [
+        'name' => 'hero_image',
+        'label' => 'Gambar latar hero',
+        'hint' => 'disarankan 1920×600 px',
+        'current' => $heroImg,
+        'remove' => 'remove_hero',
+        'empty' => 'Belum ada gambar — hero memakai gradasi bawaan.',
+    ])
   </section>
 
   <section class="card">
