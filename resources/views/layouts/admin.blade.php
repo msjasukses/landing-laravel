@@ -21,8 +21,9 @@
 <input type="checkbox" id="navToggle" class="nav-toggle" hidden>
 
 <aside class="sidebar">
-  <div class="sidebar__brand">
-    @if ($logo = upload_url(setting('site_logo')))
+  @php($logo = upload_url(setting('site_logo')))
+  <div @class(['sidebar__brand', 'sidebar__brand--logo' => $logo])>
+    @if ($logo)
       <span class="sidebar__logo sidebar__logo--img"><img src="{{ $logo }}" alt=""></span>
     @else
       <span class="sidebar__logo"><x-icon name="layers" size="20" /></span>
