@@ -15,9 +15,7 @@
 <meta name="description" content="{{ setting('meta_description') }}">
 <meta name="theme-color" content="#0b1020">
 @if ($favicon)<link rel="icon" href="{{ $favicon }}">@endif
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="preload" href="{{ asset('fonts/plus-jakarta-sans/plus-jakarta-sans-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ asset_v('css/site.css') }}">
 <style>
   :root {
@@ -35,6 +33,9 @@
     <x-brand />
     <nav class="nav__links" aria-label="Navigasi utama">
       <a href="#aplikasi" class="nav__link">Aplikasi</a>
+      @if ($downloads->isNotEmpty())
+        <a href="#unduhan" class="nav__link">Unduhan</a>
+      @endif
       <a href="#kontak" class="nav__link">Kontak</a>
       <a href="{{ route('admin.dashboard') }}" class="btn btn--glass btn--sm">
         <x-icon name="lock" size="15" /><span>Masuk</span>
@@ -238,6 +239,67 @@
   </div>
 </main>
 
+@if ($downloads->isNotEmpty())
+<section id="unduhan" class="downloads">
+  <div class="container">
+    <header class="section-head" data-reveal>
+      @if (setting('downloads_label'))
+        <p class="section-label">{{ setting('downloads_label') }}</p>
+      @endif
+      @if (setting('downloads_title'))
+        <h2 class="section-title">{{ setting('downloads_title') }}</h2>
+      @endif
+      @if (setting('downloads_subtitle'))
+        <p class="section-sub">{{ setting('downloads_subtitle') }}</p>
+      @endif
+    </header>
+
+    <div class="dl-grid">
+      @foreach ($downloads as $download)
+        <article class="dl-card tone-{{ $download->color }}" data-reveal style="--d: {{ $loop->index }}">
+          <div class="dl-card__head">
+            <span class="dl-card__icon"><x-icon :name="$download->icon" size="24" /></span>
+            <div class="dl-card__title">
+              <h3 class="dl-card__name">{{ $download->name }}</h3>
+              <p class="dl-card__tags">
+                <span class="dl-tag">{{ $download->platform_label }}</span>
+                @if ($download->version_label)<span class="dl-tag dl-tag--soft">{{ $download->version_label }}</span>@endif
+              </p>
+            </div>
+          </div>
+
+          @if ($download->description)
+            <p class="dl-card__desc">{{ $download->description }}</p>
+          @endif
+
+          <div class="dl-card__foot">
+            <p class="dl-card__info">
+              @if ($download->hasStoredFile())
+                {{ $download->extension }} &middot; {{ $download->file_size_label }}
+              @else
+                Tautan resmi
+              @endif
+              @if ($download->download_count > 0)
+                <br>{{ number_format($download->download_count, 0, ',', '.') }}&times; diunduh
+              @endif
+            </p>
+            @if ($download->hasStoredFile())
+              <a class="btn btn--sm dl-card__btn" href="{{ route('downloads.file', $download) }}" download>
+                <x-icon name="download" size="16" /> Unduh
+              </a>
+            @else
+              <a class="btn btn--sm dl-card__btn" href="{{ route('downloads.file', $download) }}" target="_blank" rel="noopener">
+                <x-icon name="external" size="16" /> Buka
+              </a>
+            @endif
+          </div>
+        </article>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endif
+
 <footer id="kontak" class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
@@ -270,6 +332,9 @@
         @foreach ($groups as $group)
           <li><x-icon name="layers" size="16" /><a href="#grup-{{ $group->id }}">{{ $group->name }}</a></li>
         @endforeach
+        @if ($downloads->isNotEmpty())
+          <li><x-icon name="download" size="16" /><a href="#unduhan">Unduhan</a></li>
+        @endif
         <li><x-icon name="settings" size="16" /><a href="{{ route('admin.dashboard') }}">Pengaturan</a></li>
       </ul>
     </div>

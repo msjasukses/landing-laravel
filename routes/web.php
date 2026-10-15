@@ -5,12 +5,15 @@ use App\Http\Controllers\Admin\AppGroupController;
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\DownloadFileController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', LandingController::class)->name('home');
+Route::get('unduh/{download}', DownloadFileController::class)->name('downloads.file');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -34,6 +37,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             'features' => [FeatureController::class, 'feature'],
             'groups' => [AppGroupController::class, 'group'],
             'apps' => [ApplicationController::class, 'application'],
+            'downloads' => [DownloadController::class, 'download'],
         ];
 
         foreach ($sortable as $uri => [$controller, $param]) {

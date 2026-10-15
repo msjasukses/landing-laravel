@@ -5,6 +5,7 @@
         ['route' => 'admin.features.index', 'active' => 'admin.features.*', 'label' => 'Fitur Header', 'icon' => 'shield'],
         ['route' => 'admin.groups.index', 'active' => 'admin.groups.*', 'label' => 'Grup Aplikasi', 'icon' => 'layers'],
         ['route' => 'admin.apps.index', 'active' => 'admin.apps.*', 'label' => 'Aplikasi', 'icon' => 'grid'],
+        ['route' => 'admin.downloads.index', 'active' => 'admin.downloads.*', 'label' => 'Unduhan', 'icon' => 'download'],
         ['route' => 'admin.account.edit', 'active' => 'admin.account.*', 'label' => 'Akun Admin', 'icon' => 'user'],
     ];
     $user = auth()->user();

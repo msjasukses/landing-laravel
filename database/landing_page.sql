@@ -30,7 +30,7 @@ CREATE TABLE `app_groups` (
 
 LOCK TABLES `app_groups` WRITE;
 /*!40000 ALTER TABLE `app_groups` DISABLE KEYS */;
-INSERT INTO `app_groups` VALUES (1,'DEMO','Sistem Informasi Sekolah Terintegrasi',NULL,1,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(2,'LAYANAN SEKOLAH','Aplikasi pendukung kesiswaan & kurikulum',NULL,2,1,'2026-10-07 12:10:20','2026-10-07 12:10:20');
+INSERT INTO `app_groups` VALUES (1,'DEMO','Sistem Informasi Sekolah Terintegrasi',NULL,1,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(2,'LAYANAN SEKOLAH','Aplikasi pendukung kesiswaan & kurikulum',NULL,2,1,'2026-10-15 14:02:58','2026-10-15 14:02:58');
 /*!40000 ALTER TABLE `app_groups` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `applications`;
@@ -57,7 +57,7 @@ CREATE TABLE `applications` (
 
 LOCK TABLES `applications` WRITE;
 /*!40000 ALTER TABLE `applications` DISABLE KEYS */;
-INSERT INTO `applications` VALUES (1,1,'DATA CENTER','Pusat Data Sekolah','#','users','indigo',1,1,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(2,1,'PRESENSI','Manajemen Kehadiran','#','clock','green',1,2,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(3,1,'JURNAL','Jurnal Pembelajaran','#','book','violet',1,3,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(4,1,'CBT','Computer Based Test','#','monitor','sky',1,4,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(5,2,'KESISWAAN','Poin & Prestasi Siswa','#','award','amber',1,1,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(6,2,'BIMBINGAN KONSELING','Layanan BK Siswa','#','message','rose',1,2,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(7,2,'KURIKULUM','Jadwal & Perangkat Ajar','#','layers','teal',1,3,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(8,2,'E-RAPOR','Penilaian & Rapor Digital','#','file-text','blue',1,4,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(9,2,'PPDB ONLINE','Penerimaan Peserta Didik Baru','#','graduation','orange',1,5,0,'2026-10-07 12:10:20','2026-10-07 12:10:20');
+INSERT INTO `applications` VALUES (1,1,'DATA CENTER','Pusat Data Sekolah','#','users','indigo',1,1,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(2,1,'PRESENSI','Manajemen Kehadiran','#','clock','green',1,2,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(3,1,'JURNAL','Jurnal Pembelajaran','#','book','violet',1,3,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(4,1,'CBT','Computer Based Test','#','monitor','sky',1,4,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(5,2,'KESISWAAN','Poin & Prestasi Siswa','#','award','amber',1,1,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(6,2,'BIMBINGAN KONSELING','Layanan BK Siswa','#','message','rose',1,2,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(7,2,'KURIKULUM','Jadwal & Perangkat Ajar','#','layers','teal',1,3,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(8,2,'E-RAPOR','Penilaian & Rapor Digital','#','file-text','blue',1,4,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(9,2,'PPDB ONLINE','Penerimaan Peserta Didik Baru','#','graduation','orange',1,5,0,'2026-10-15 14:02:58','2026-10-15 14:02:58');
 /*!40000 ALTER TABLE `applications` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `cache`;
@@ -91,6 +91,34 @@ CREATE TABLE `cache_locks` (
 LOCK TABLES `cache_locks` WRITE;
 /*!40000 ALTER TABLE `cache_locks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cache_locks` ENABLE KEYS */;
+UNLOCK TABLES;
+DROP TABLE IF EXISTS `downloads`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `downloads` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `version` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `platform` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'android',
+  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_size` bigint unsigned DEFAULT NULL,
+  `external_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'smartphone',
+  `color` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'green',
+  `download_count` int unsigned NOT NULL DEFAULT '0',
+  `sort_order` int unsigned NOT NULL DEFAULT '0',
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `downloads` WRITE;
+/*!40000 ALTER TABLE `downloads` DISABLE KEYS */;
+/*!40000 ALTER TABLE `downloads` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `failed_jobs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -131,7 +159,7 @@ CREATE TABLE `features` (
 
 LOCK TABLES `features` WRITE;
 /*!40000 ALTER TABLE `features` DISABLE KEYS */;
-INSERT INTO `features` VALUES (1,'lock','Login Protect','Keamanan Login akun',1,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(2,'shield','Protected','Ujian lebih aman & terjaga',2,1,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(3,'refresh','Data Integration','Sinkron data real-time',3,1,'2026-10-07 12:10:20','2026-10-07 12:10:20');
+INSERT INTO `features` VALUES (1,'lock','Login Protect','Keamanan Login akun',1,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(2,'shield','Protected','Ujian lebih aman & terjaga',2,1,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(3,'refresh','Data Integration','Sinkron data real-time',3,1,'2026-10-15 14:02:58','2026-10-15 14:02:58');
 /*!40000 ALTER TABLE `features` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `job_batches`;
@@ -184,12 +212,12 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_10_02_000001_create_settings_table',1),(5,'2026_10_02_000002_create_features_table',1),(6,'2026_10_02_000003_create_app_groups_table',1),(7,'2026_10_02_000004_create_applications_table',1),(8,'2026_10_07_190210_add_section_heading_settings',1);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2026_10_02_000001_create_settings_table',1),(5,'2026_10_02_000002_create_features_table',1),(6,'2026_10_02_000003_create_app_groups_table',1),(7,'2026_10_02_000004_create_applications_table',1),(8,'2026_10_07_190210_add_section_heading_settings',1),(9,'2026_10_15_204501_create_downloads_table',1),(10,'2026_10_15_204509_add_download_section_settings',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `password_reset_tokens`;
@@ -238,12 +266,12 @@ CREATE TABLE `settings` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `settings_key_unique` (`key`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'section_title','Semua layanan sekolah dalam satu portal','2026-10-07 12:10:20','2026-10-07 12:10:20'),(2,'section_subtitle','Pilih aplikasi untuk mulai bekerja. Gunakan pencarian atau filter grup untuk menemukannya lebih cepat.','2026-10-07 12:10:20','2026-10-07 12:10:20'),(3,'site_name','Digital Learning Management System','2026-10-07 12:10:20','2026-10-07 12:10:20'),(4,'site_tagline','Sistem Informasi Sekolah Terintegrasi','2026-10-07 12:10:20','2026-10-07 12:10:20'),(5,'meta_description','Portal aplikasi sekolah terintegrasi: data center, presensi, jurnal, dan CBT.','2026-10-07 12:10:20','2026-10-07 12:10:20'),(6,'favicon',NULL,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(7,'hero_title','Digital Learning Management System','2026-10-07 12:10:20','2026-10-07 12:10:20'),(8,'hero_subtitle','Selamat datang di Sistem Manajemen Pembelajaran Digital DEMO.','2026-10-07 12:10:20','2026-10-07 12:10:20'),(9,'hero_badge','Sistem Informasi Sekolah Terintegrasi','2026-10-07 12:10:20','2026-10-07 12:10:20'),(10,'hero_image',NULL,'2026-10-07 12:10:20','2026-10-07 12:10:20'),(11,'hero_overlay','65','2026-10-07 12:10:20','2026-10-07 12:10:20'),(12,'section_label','AVAILABLE APPS','2026-10-07 12:10:20','2026-10-07 12:10:20'),(13,'accent_color','#e11d48','2026-10-07 12:10:20','2026-10-07 12:10:20'),(14,'primary_color','#4f46e5','2026-10-07 12:10:20','2026-10-07 12:10:20'),(15,'show_search','1','2026-10-07 12:10:20','2026-10-07 12:10:20'),(16,'footer_text','© 2026 Digital Learning Management System. All rights reserved.','2026-10-07 12:10:20','2026-10-07 12:10:20'),(17,'contact_email','admin@sekolah.sch.id','2026-10-07 12:10:20','2026-10-07 12:10:20'),(18,'contact_phone','(021) 1234-5678','2026-10-07 12:10:20','2026-10-07 12:10:20'),(19,'contact_address','Jl. Pendidikan No. 1, Jakarta','2026-10-07 12:10:20','2026-10-07 12:10:20');
+INSERT INTO `settings` VALUES (1,'section_title','Semua layanan sekolah dalam satu portal','2026-10-15 14:02:56','2026-10-15 14:02:56'),(2,'section_subtitle','Pilih aplikasi untuk mulai bekerja. Gunakan pencarian atau filter grup untuk menemukannya lebih cepat.','2026-10-15 14:02:56','2026-10-15 14:02:56'),(3,'downloads_label','UNDUHAN','2026-10-15 14:02:56','2026-10-15 14:02:56'),(4,'downloads_title','Unduh aplikasi pendukung','2026-10-15 14:02:56','2026-10-15 14:02:56'),(5,'downloads_subtitle','Pasang aplikasi resmi sekolah di perangkat Anda. Semua file tersedia langsung dari server sekolah.','2026-10-15 14:02:56','2026-10-15 14:02:56'),(6,'site_name','Digital Learning Management System','2026-10-15 14:02:58','2026-10-15 14:02:58'),(7,'site_tagline','Sistem Informasi Sekolah Terintegrasi','2026-10-15 14:02:58','2026-10-15 14:02:58'),(8,'meta_description','Portal aplikasi sekolah terintegrasi: data center, presensi, jurnal, dan CBT.','2026-10-15 14:02:58','2026-10-15 14:02:58'),(9,'favicon',NULL,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(10,'hero_title','Digital Learning Management System','2026-10-15 14:02:58','2026-10-15 14:02:58'),(11,'hero_subtitle','Selamat datang di Sistem Manajemen Pembelajaran Digital DEMO.','2026-10-15 14:02:58','2026-10-15 14:02:58'),(12,'hero_badge','Sistem Informasi Sekolah Terintegrasi','2026-10-15 14:02:58','2026-10-15 14:02:58'),(13,'hero_image',NULL,'2026-10-15 14:02:58','2026-10-15 14:02:58'),(14,'hero_overlay','65','2026-10-15 14:02:58','2026-10-15 14:02:58'),(15,'section_label','AVAILABLE APPS','2026-10-15 14:02:58','2026-10-15 14:02:58'),(16,'accent_color','#e11d48','2026-10-15 14:02:58','2026-10-15 14:02:58'),(17,'primary_color','#4f46e5','2026-10-15 14:02:58','2026-10-15 14:02:58'),(18,'show_search','1','2026-10-15 14:02:58','2026-10-15 14:02:58'),(19,'footer_text','© 2026 Digital Learning Management System. All rights reserved.','2026-10-15 14:02:58','2026-10-15 14:02:58'),(20,'contact_email','admin@sekolah.sch.id','2026-10-15 14:02:58','2026-10-15 14:02:58'),(21,'contact_phone','(021) 1234-5678','2026-10-15 14:02:58','2026-10-15 14:02:58'),(22,'contact_address','Jl. Pendidikan No. 1, Jakarta','2026-10-15 14:02:58','2026-10-15 14:02:58');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 DROP TABLE IF EXISTS `users`;
@@ -267,7 +295,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrator','admin','admin@sekolah.sch.id',NULL,'$2y$12$th3PJo4RwYuAtfQyeOOHYuN3dWXw6w1zUA3o7fDWIQdky6KcF/RNi',NULL,'2026-10-07 12:10:20','2026-10-07 12:10:20');
+INSERT INTO `users` VALUES (1,'Administrator','admin','admin@sekolah.sch.id',NULL,'$2y$12$7DcyxHKuogaB6owmzWMeI.v4gimrhlvcxKy/zUi1AH9X7alrf52DK',NULL,'2026-10-15 14:02:57','2026-10-15 14:02:57');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

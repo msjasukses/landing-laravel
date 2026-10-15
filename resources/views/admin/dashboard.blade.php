@@ -28,6 +28,14 @@
       <p class="stat__note">Tampil pada bar putih di bawah hero</p>
     </div>
   </div>
+  <a class="stat" href="{{ route('admin.downloads.index') }}">
+    <span class="stat__icon ic-sky"><x-icon name="download" size="20" /></span>
+    <div>
+      <p class="stat__num">{{ $stats['downloads'] }}</p>
+      <p class="stat__label">File unduhan</p>
+      <p class="stat__note">{{ $stats['download_count'] }}&times; diunduh pengunjung</p>
+    </div>
+  </a>
 </div>
 
 <div class="grid-2">

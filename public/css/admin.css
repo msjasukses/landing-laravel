@@ -623,3 +623,21 @@ button.nav-item {
 
 .sidebar__logo--img img,
 .auth__logo--img img { display: block; width: auto; max-width: 100%; height: 100%; object-fit: contain; }
+
+/* file unduhan saat ini (menu Unduhan) */
+.file-current {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--ink-soft);
+}
+
+.file-current strong { display: block; font-size: 13px; color: var(--ink); word-break: break-all; }
+.file-current small { display: block; font-size: 12px; color: var(--ink-mute); }
+
+.btn:disabled { opacity: .7; cursor: progress; transform: none; }
+.table .pill + small, .table strong + .pill { margin-left: 6px; }

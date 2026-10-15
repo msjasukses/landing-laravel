@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\AppGroup;
 use App\Models\Application;
+use App\Models\Download;
 use App\Models\Feature;
 use App\Models\Setting;
 use App\Models\User;
@@ -67,6 +68,7 @@ class AdminPanelTest extends TestCase
     {
         $this->actingAs($this->admin());
         $app = Application::first();
+        $download = Download::factory()->create();
 
         foreach ([
             route('admin.dashboard'),
@@ -78,6 +80,8 @@ class AdminPanelTest extends TestCase
             route('admin.apps.index'),
             route('admin.apps.index', ['group' => $app->app_group_id]),
             route('admin.apps.edit', $app),
+            route('admin.downloads.index'),
+            route('admin.downloads.edit', $download),
             route('admin.account.edit'),
         ] as $url) {
             $this->get($url)->assertOk();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AppGroup;
 use App\Models\Application;
+use App\Models\Download;
 use App\Models\Feature;
 use Illuminate\View\View;
 
@@ -19,6 +20,8 @@ class DashboardController extends Controller
                 'groups' => AppGroup::count(),
                 'groups_active' => AppGroup::active()->count(),
                 'features' => Feature::active()->count(),
+                'downloads' => Download::count(),
+                'download_count' => (int) Download::sum('download_count'),
             ],
             'recent' => Application::with('group')->latest('id')->limit(6)->get(),
         ]);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AppGroup;
+use App\Models\Download;
 use App\Models\Feature;
 use Illuminate\View\View;
 
@@ -21,6 +22,7 @@ class LandingController extends Controller
             'features' => Feature::active()->ordered()->get(),
             'totalApps' => $apps->count(),
             'showcaseApps' => $apps->take(6),
+            'downloads' => Download::active()->available()->ordered()->get(),
         ]);
     }
 }

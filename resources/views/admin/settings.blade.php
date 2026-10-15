@@ -124,6 +124,27 @@
   </section>
 
   <section class="card">
+    <div class="card__head">
+      <h2><x-icon name="download" size="18" /> Seksi Unduhan</h2>
+      <a class="btn btn--sm" href="{{ route('admin.downloads.index') }}">Kelola file</a>
+    </div>
+    <div class="grid-2">
+      <label class="field">
+        <span>Label seksi <em>(teks kecil berwarna)</em></span>
+        <input type="text" name="downloads_label" value="{{ $val('downloads_label') }}">
+      </label>
+      <label class="field">
+        <span>Judul seksi</span>
+        <input type="text" name="downloads_title" value="{{ $val('downloads_title') }}">
+      </label>
+    </div>
+    <label class="field">
+      <span>Keterangan seksi</span>
+      <textarea name="downloads_subtitle" rows="2">{{ $val('downloads_subtitle') }}</textarea>
+    </label>
+  </section>
+
+  <section class="card">
     <div class="card__head"><h2><x-icon name="mail" size="18" /> Footer &amp; Kontak</h2></div>
     <label class="field">
       <span>Teks footer</span>
