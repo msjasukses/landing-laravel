@@ -187,6 +187,8 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="search"],
+input[type="url"],
+input[type="number"],
 textarea,
 .select {
   width: 100%;
@@ -281,6 +283,23 @@ input[type="file"] { font-size: 12.5px; }
 .picker__opt input:checked + span { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(79, 70, 229, .18); }
 .picker--color .picker__opt span svg { opacity: 0; transition: opacity .15s ease; }
 .picker--color .picker__opt input:checked + span svg { opacity: 1; }
+
+/* Contoh warna tampil sebagai warna tegasnya. Aturan .picker__opt span di atas lebih spesifik
+   daripada .ic-*, jadi warna perlu ditetapkan ulang di sini. */
+.picker--color .picker__opt span { background: var(--swatch); border-color: transparent; color: #fff; }
+.picker--color .picker__opt input:checked + span { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--swatch); }
+.picker--color .ic-indigo { --swatch: #4f46e5; }
+.picker--color .ic-violet { --swatch: #7c3aed; }
+.picker--color .ic-blue   { --swatch: #2563eb; }
+.picker--color .ic-sky    { --swatch: #0284c7; }
+.picker--color .ic-teal   { --swatch: #0d9488; }
+.picker--color .ic-green  { --swatch: #059669; }
+.picker--color .ic-amber  { --swatch: #d97706; }
+.picker--color .ic-orange { --swatch: #ea580c; }
+.picker--color .ic-rose   { --swatch: #e11d48; }
+.picker--color .ic-red    { --swatch: #dc2626; }
+.picker--color .ic-pink   { --swatch: #db2777; }
+.picker--color .ic-slate  { --swatch: #475569; }
 
 /* ---------------------------------------------------------------- tables */
 

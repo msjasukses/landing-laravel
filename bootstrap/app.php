@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -12,11 +13,30 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->redirectGuestsTo(fn () => route('admin.login'));
-        $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
+        $middleware->redirectGuestsTo(fn (Request $request) => $request->routeIs('siswa.*')
+            ? route('siswa.login')
+            : route('admin.login'));
+        $middleware->redirectUsersTo(fn (Request $request) => $request->routeIs('siswa.*')
+            ? route('siswa.dashboard')
+            : route('admin.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        // Portal Siswa: database aplikasi sekolah lain tidak bisa dihubungi.
+        // Kesalahan tetap dicatat di log; siswa melihat pesan yang jelas.
+        $exceptions->render(function (QueryException $e, Request $request) {
+            $aplikasi = [
+                'datacenter' => 'Data Center',
+                'absensi' => 'Absensi',
+                'kurikulum' => 'Kurikulum',
+                'kesiswaan' => 'Kesiswaan',
+            ][$e->getConnectionName()] ?? null;
+
+            if ($aplikasi && $request->routeIs('siswa.*')) {
+                return response()->view('siswa.koneksi-gagal', ['aplikasi' => $aplikasi], 503);
+            }
+        });
     })->create();

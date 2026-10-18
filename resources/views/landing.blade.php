@@ -37,6 +37,7 @@
         <a href="#unduhan" class="nav__link">Unduhan</a>
       @endif
       <a href="#kontak" class="nav__link">Kontak</a>
+      <a href="{{ route('siswa.dashboard') }}" class="nav__link">Portal Siswa</a>
       <a href="{{ route('admin.dashboard') }}" class="btn btn--glass btn--sm">
         <x-icon name="lock" size="15" /><span>Masuk</span>
       </a>

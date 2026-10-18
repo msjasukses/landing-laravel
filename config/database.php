@@ -3,6 +3,27 @@
 use Illuminate\Support\Str;
 use Pdo\Mysql;
 
+/*
+ * Koneksi ke database aplikasi sekolah lain (Data Center, Absensi, Kurikulum,
+ * Kesiswaan) untuk modul Portal Siswa. Setiap koneksi diatur lewat variabel
+ * .env berawalan {PREFIX}_DB_*, mis. DATACENTER_DB_HOST.
+ */
+$aplikasiSekolah = fn (string $prefix, string $database): array => [
+    'driver' => env($prefix.'_DB_CONNECTION', 'mysql'),
+    'host' => env($prefix.'_DB_HOST', '127.0.0.1'),
+    'port' => env($prefix.'_DB_PORT', '3306'),
+    'database' => env($prefix.'_DB_DATABASE', $database),
+    'username' => env($prefix.'_DB_USERNAME', 'root'),
+    'password' => env($prefix.'_DB_PASSWORD', ''),
+    'unix_socket' => env($prefix.'_DB_SOCKET', ''),
+    'charset' => 'utf8mb4',
+    'collation' => 'utf8mb4_unicode_ci',
+    'prefix' => '',
+    'prefix_indexes' => true,
+    'strict' => true,
+    'engine' => null,
+];
+
 return [
 
     /*
@@ -113,6 +134,18 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+
+        // Akun & data master siswa/kelas (dibaca; hanya penanda login yang ditulis).
+        'datacenter' => $aplikasiSekolah('DATACENTER', 'datacenter_v2'),
+
+        // Catatan absensi & jadwal magang (hanya dibaca).
+        'absensi' => $aplikasiSekolah('ABSENSI', 'absensi_sekolah'),
+
+        // Agenda, tugas, materi, jurnal PKL (pengumpulan tugas & jurnal ditulis).
+        'kurikulum' => $aplikasiSekolah('KURIKULUM', 'kurikulum'),
+
+        // Prestasi & pelanggaran siswa (hanya dibaca).
+        'kesiswaan' => $aplikasiSekolah('KESISWAAN', 'kesiswaan'),
 
     ],
 

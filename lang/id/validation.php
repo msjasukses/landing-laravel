@@ -6,16 +6,21 @@
 */
 
 return [
+    'after' => ':Attribute harus setelah :date.',
     'alpha_dash' => ':Attribute hanya boleh berisi huruf, angka, tanda hubung, dan garis bawah.',
+    'before_or_equal' => ':Attribute harus sebelum atau sama dengan :date.',
     'between' => [
         'numeric' => ':Attribute harus bernilai antara :min sampai :max.',
     ],
     'confirmed' => 'Konfirmasi :attribute tidak cocok.',
     'current_password' => 'Password saat ini salah.',
+    'date' => ':Attribute bukan tanggal yang valid.',
+    'date_format' => ':Attribute tidak cocok dengan format :format.',
     'email' => ':Attribute harus berupa alamat email yang valid.',
     'exists' => ':Attribute yang dipilih tidak valid.',
     'extensions' => ':Attribute harus berformat: :values.',
     'file' => ':Attribute harus berupa file.',
+    'image' => ':Attribute harus berupa gambar.',
     'in' => ':Attribute yang dipilih tidak valid.',
     'integer' => ':Attribute harus berupa bilangan bulat.',
     'max' => [

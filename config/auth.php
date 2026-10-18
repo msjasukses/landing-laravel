@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Datacenter\Siswa;
 use App\Models\User;
 
 return [
@@ -42,6 +43,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // Portal Siswa: akun siswa dari aplikasi Data Center (login NISN).
+        'siswa' => [
+            'driver' => 'session',
+            'provider' => 'siswa',
+        ],
     ],
 
     /*
@@ -65,6 +72,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
+        ],
+
+        'siswa' => [
+            'driver' => 'eloquent',
+            'model' => Siswa::class,
         ],
 
         // 'users' => [

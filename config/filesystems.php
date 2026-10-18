@@ -57,6 +57,17 @@ return [
             'report' => false,
         ],
 
+        // Disk "public" milik aplikasi Kurikulum: file materi, lampiran tugas,
+        // jawaban tugas, dan foto jurnal PKL. Portal Siswa membaca & menulis di
+        // sini supaya guru langsung melihat unggahan siswa di aplikasi Kurikulum.
+        'kurikulum' => [
+            'driver' => 'local',
+            'root' => env('KURIKULUM_STORAGE_PATH', base_path('../kurikulum/storage/app/public')),
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

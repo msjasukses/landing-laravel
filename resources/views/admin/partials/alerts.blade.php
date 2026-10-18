@@ -5,6 +5,13 @@
   </div>
 @endif
 
+@if (session('error'))
+  <div class="alert alert--error">
+    <x-icon name="x" size="16" />
+    <span>{{ session('error') }}</span>
+  </div>
+@endif
+
 @if ($errors->any())
   <div class="alert alert--error">
     <x-icon name="x" size="16" />
