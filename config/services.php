@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    /*
+    | Aplikasi Absensi (presensi) — endpoint barcode_api.php yang dipakai menu
+    | Absen Barcode di Portal Siswa. 'barcode_key' harus sama dengan
+    | BARCODE_API_KEY pada config.local.php aplikasi Absensi; kosong = menu
+    | Absen Barcode dimatikan.
+    */
+    'absensi' => [
+        'url' => env('ABSENSI_URL'),
+        'barcode_key' => env('ABSENSI_BARCODE_KEY'),
+        'timeout' => (int) env('ABSENSI_TIMEOUT', 8),
+    ],
+
 ];

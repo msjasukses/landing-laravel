@@ -1,6 +1,7 @@
 @php
     $menu = [
         ['route' => 'siswa.dashboard', 'active' => 'siswa.dashboard', 'label' => 'Dashboard', 'icon' => 'home'],
+        ['route' => 'siswa.absen', 'active' => 'siswa.absen', 'label' => 'Absen Barcode', 'icon' => 'qr'],
         ['route' => 'siswa.absensi', 'active' => 'siswa.absensi', 'label' => 'Absensi Bulanan', 'icon' => 'calendar'],
         ['route' => 'siswa.agenda', 'active' => 'siswa.agenda', 'label' => 'Agenda Mengajar', 'icon' => 'book'],
         ['route' => 'siswa.tugas.index', 'active' => 'siswa.tugas.*', 'label' => 'Tugas', 'icon' => 'clipboard'],

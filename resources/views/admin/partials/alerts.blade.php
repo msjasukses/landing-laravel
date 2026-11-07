@@ -5,6 +5,13 @@
   </div>
 @endif
 
+@if (session('warning'))
+  <div class="alert alert--warning">
+    <x-icon name="alert" size="16" />
+    <span>{{ session('warning') }}</span>
+  </div>
+@endif
+
 @if (session('error'))
   <div class="alert alert--error">
     <x-icon name="x" size="16" />

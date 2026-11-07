@@ -67,6 +67,12 @@ Route::prefix('siswa')->name('siswa.')->group(function () {
 
         Route::get('/', Siswa\DashboardController::class)->name('dashboard');
         Route::get('absensi', Siswa\AbsensiController::class)->name('absensi');
+
+        // Absen dengan memindai QR Layar Tap aplikasi Absensi.
+        Route::get('absen', [Siswa\AbsenBarcodeController::class, 'index'])->name('absen');
+        Route::post('absen', [Siswa\AbsenBarcodeController::class, 'store'])
+            ->middleware('throttle:20,1')->name('absen.store');
+
         Route::get('agenda', Siswa\AgendaController::class)->name('agenda');
         Route::get('materi', Siswa\MateriController::class)->name('materi');
         Route::get('prestasi', Siswa\PrestasiController::class)->name('prestasi');

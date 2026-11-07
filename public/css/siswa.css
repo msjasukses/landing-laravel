@@ -164,3 +164,54 @@ input[type="month"]:focus {
   .toolbar input[type="search"],
   .toolbar input[type="text"] { width: 100%; }
 }
+
+/* Absen barcode: pemindai kamera & kartu konfirmasi sesudah barcode terbaca. */
+.btn--lg { padding: 13px 18px; font-size: 15px; }
+
+.scan__frame {
+  position: relative;
+  max-width: 340px;
+  margin: 0 auto 12px;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.scan__video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.scan__sasaran {
+  position: absolute;
+  inset: 16%;
+  border: 3px solid rgba(255, 255, 255, .85);
+  border-radius: 12px;
+  box-shadow: 0 0 0 100vmax rgba(15, 23, 42, .35);
+}
+
+.scan__status { margin: 0 0 12px; text-align: center; font-size: 13px; color: var(--ink-soft); }
+.scan__status--error { color: #dc2626; }
+
+.langkah { margin: 0; padding-left: 20px; line-height: 1.7; color: var(--ink-soft); }
+.langkah strong { color: var(--ink); }
+
+.scan-ok { text-align: center; }
+.scan-ok__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #047857;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.scan-ok__nama { margin: 6px 0 2px; font-size: 20px; }
+.scan-ok__form { max-width: 340px; margin: 18px auto 10px; }
+.scan-ok__sisa { margin: 0 0 14px; font-size: 12.5px; color: var(--ink-mute); }
+
+.scan__konfirmasi { text-align: center; }
+
+.panduan { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.panduan summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink-soft); }
+.panduan .langkah { margin-top: 10px; }
